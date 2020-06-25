@@ -30,13 +30,14 @@ describe('ItemContainer', () => {
   });
 
   it('can click button', () => {
+    const id = 100;
     const title = '아무것도 안하기';
 
     const dispatch = jest.fn();
     useDispatch.mockImplementation(() => dispatch);
 
     const task = {
-      id: 100,
+      id,
       title,
     };
 
@@ -49,6 +50,9 @@ describe('ItemContainer', () => {
     ));
 
     fireEvent.click(getByText(/완료/));
-    expect(dispatch).toBeCalledWith(title);
+    expect(dispatch).toBeCalledWith({
+      type: 'deleteTask',
+      payload: { id },
+    });
   });
 });
